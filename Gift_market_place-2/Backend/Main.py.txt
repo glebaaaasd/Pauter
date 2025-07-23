@@ -1,0 +1,24 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# Разрешаем CORS для фронта
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # В проде желательно указать конкретный домен фронта
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Фиктивные товары
+products = [
+    {"id": "1", "name": "Кружка с логотипом", "price": 490},
+    {"id": "2", "name": "Плюшевый медведь", "price": 1490},
+    {"id": "3", "name": "Набор шоколада", "price": 790},
+    {"id": "4", "name": "Подарочный сертификат", "price": 1000},
+]
+
+@app.get("/products")
+def get_products():
+    return products
